@@ -23,20 +23,39 @@
 </div>
 
 <div id="routePanel" class="panel hidden">
-    <div class="routeHeader">
-        <h2 id="lineTitle"></h2>
-        <button id="btnCambiarLinea" onclick="backToLineSelection()">🔄 Cambiar línea</button>
-    </div>
 
-    <div class="topBar">
+    <header class="topBanner">
+        <!-- Si tienes el logo real de TIB, sustituye este div por:
+             <img src="logo-tib.png" alt="TIB" class="logoImg"> -->
+        <div class="logoBadge">TIB</div>
+
         <div class="paradaInfo">
             <p><strong>Parada actual:</strong> <span id="paradaActual">-</span></p>
             <p><strong>Parada próxima:</strong> <span id="paradaProxima">-</span></p>
         </div>
-        <button id="btnSiguiente" onclick="nextStop()">Siguiente ▶</button>
-    </div>
 
-    <div id="cities"></div>
+        <div class="topBannerActions">
+            <button id="btnSiguiente" onclick="nextStop()">Siguiente ▶</button>
+            <button id="btnCambiarLinea" onclick="backToLineSelection()">Cambiar línea</button>
+        </div>
+    </header>
+
+    <div class="mainArea">
+        <div class="citiesGrid" id="cities"></div>
+
+        <aside class="ticketPanel">
+            <h3>Cobrar billete</h3>
+            <p class="ticketHint">Selecciona el nº de personas y pulsa la ciudad de destino</p>
+
+            <div class="stepper">
+                <button onclick="decPeople()">−</button>
+                <span id="peopleCount">1</span>
+                <button onclick="incPeople()">+</button>
+            </div>
+
+            <div id="lastCharge" class="lastCharge"></div>
+        </aside>
+    </div>
 </div>
 
 <script src="/scriptTIB.js"></script>
