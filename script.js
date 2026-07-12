@@ -92,6 +92,7 @@ let currentLineName = "";
 let currentCities = [];
 let flatStops = [];   // paradas "aplanadas" en orden, cada una con su ciudad
 let currentIndex = 0;
+let peopleCount = 1;  // personas seleccionadas para el próximo cobro
 
 function login() {
     const u = document.getElementById("user").value;
@@ -141,6 +142,9 @@ function loadLine() {
     currentCities = data.cities;
     flatStops = buildFlatStops(currentCities);
     currentIndex = 0;
+    peopleCount = 1;
+
+    document.getElementById("lastCharge").innerText = "";
 
     document.getElementById("linePanel").classList.add("hidden");
     document.getElementById("routePanel").classList.remove("hidden");
@@ -156,6 +160,7 @@ function backToLineSelection() {
     currentCities = [];
     flatStops = [];
     currentIndex = 0;
+    peopleCount = 1;
 
     document.getElementById("lineSelect").value = "";
     document.getElementById("routePanel").classList.add("hidden");
@@ -163,9 +168,6 @@ function backToLineSelection() {
 }
 
 function render() {
-    document.getElementById("lineTitle").innerText =
-        "Línea " + currentLineNumber + " · " + currentLineName;
-
     const actual = flatStops[currentIndex];
     const proxima = flatStops[currentIndex + 1];
 
@@ -188,11 +190,12 @@ function render() {
     }
 }
 
+// Ahora solo se muestra un botón por CIUDAD (no por parada individual).
+// Una ciudad deja de aparecer en cuanto se ha pasado su última parada.
 function renderCities() {
     const container = document.getElementById("cities");
     container.innerHTML = "";
 
-    // Solo quedan las paradas que aún no se han pasado
     const remaining = flatStops.slice(currentIndex);
 
     if (remaining.length === 0) {
@@ -200,9 +203,6 @@ function renderCities() {
         return;
     }
 
-    // Agrupamos las paradas restantes por ciudad, manteniendo el orden real.
-    // En cuanto la última parada de una ciudad se pasa, esa ciudad deja de
-    // aparecer en "remaining" y por tanto desaparece de la lista de abajo.
     const groups = [];
     remaining.forEach((item) => {
         const lastGroup = groups[groups.length - 1];
@@ -214,18 +214,11 @@ function renderCities() {
     });
 
     groups.forEach((group, gi) => {
-        const div = document.createElement("div");
-        div.className = "cityBox" + (gi === 0 ? " current" : "");
-
-        const stopsHtml = group.stops
-            .map((stop, si) => {
-                const isCurrentStop = gi === 0 && si === 0;
-                return `<li class="${isCurrentStop ? "currentStop" : ""}">${stop}</li>`;
-            })
-            .join("");
-
-        div.innerHTML = `<h3>${group.cityName}</h3><ul>${stopsHtml}</ul>`;
-        container.appendChild(div);
+        const btn = document.createElement("button");
+        btn.className = "cityBtn" + (gi === 0 ? " current" : "");
+        btn.innerText = group.cityName;
+        btn.onclick = () => chargeTicket(group.cityName);
+        container.appendChild(btn);
     });
 }
 
@@ -233,6 +226,29 @@ function nextStop() {
     if (currentIndex >= flatStops.length - 1) return;
     currentIndex++;
     render();
+}
+
+function incPeople() {
+    peopleCount++;
+    document.getElementById("peopleCount").innerText = peopleCount;
+}
+
+function decPeople() {
+    if (peopleCount > 1) peopleCount--;
+    document.getElementById("peopleCount").innerText = peopleCount;
+}
+
+// Se llama al pulsar una ciudad: "cobra" el billete para el nº de
+// personas seleccionado y reinicia el contador a 1 para el siguiente cliente.
+function chargeTicket(cityName) {
+    const count = peopleCount;
+    const label = count === 1 ? "persona" : "personas";
+
+    document.getElementById("lastCharge").innerText =
+        `✔ Cobrado: ${count} ${label} → ${cityName}`;
+
+    peopleCount = 1;
+    document.getElementById("peopleCount").innerText = peopleCount;
 }
 
 populateLineSelect();
