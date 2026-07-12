@@ -103,6 +103,18 @@ function login() {
     document.getElementById("linePanel").classList.remove("hidden");
 }
 
+// Rellena el desplegable de líneas a partir de las claves de "lines"
+function populateLineSelect() {
+    const select = document.getElementById("lineSelect");
+
+    Object.keys(lines).forEach((key) => {
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.innerText = `${key} - ${lines[key].name}`;
+        select.appendChild(opt);
+    });
+}
+
 // Convierte la lista de ciudades (con sus paradas) en una lista plana
 // de paradas individuales, cada una recordando a qué ciudad pertenece.
 function buildFlatStops(cities) {
@@ -116,11 +128,11 @@ function buildFlatStops(cities) {
 }
 
 function loadLine() {
-    const line = document.getElementById("lineInput").value.trim();
+    const line = document.getElementById("lineSelect").value;
     const data = lines[line];
 
     if (!data) {
-        alert("Línea no encontrada");
+        alert("Selecciona una línea primero");
         return;
     }
 
@@ -134,6 +146,20 @@ function loadLine() {
     document.getElementById("routePanel").classList.remove("hidden");
 
     render();
+}
+
+// Vuelve a la pantalla de selección de línea y resetea el estado de la ruta.
+// Se puede llamar en cualquier momento (a mitad de ruta o al terminarla).
+function backToLineSelection() {
+    currentLineNumber = "";
+    currentLineName = "";
+    currentCities = [];
+    flatStops = [];
+    currentIndex = 0;
+
+    document.getElementById("lineSelect").value = "";
+    document.getElementById("routePanel").classList.add("hidden");
+    document.getElementById("linePanel").classList.remove("hidden");
 }
 
 function render() {
@@ -208,3 +234,5 @@ function nextStop() {
     currentIndex++;
     render();
 }
+
+populateLineSelect();
