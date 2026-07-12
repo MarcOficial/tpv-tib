@@ -7,21 +7,26 @@
 </head>
 <body>
 
-<div id="login" class="panel">
+<div id="login" class="panel centered">
     <h2>Inicio de sesión</h2>
     <input id="user" placeholder="Usuario">
     <input id="pass" type="password" placeholder="Contraseña">
     <button onclick="login()">Entrar</button>
 </div>
 
-<div id="linePanel" class="panel hidden">
-    <h2>Introducir línea</h2>
-    <input id="lineInput" placeholder="Ej: 101">
+<div id="linePanel" class="panel centered hidden">
+    <h2>Selecciona línea</h2>
+    <select id="lineSelect">
+        <option value="">-- Elige una línea --</option>
+    </select>
     <button onclick="loadLine()">Cargar línea</button>
 </div>
 
 <div id="routePanel" class="panel hidden">
-    <h2 id="lineTitle"></h2>
+    <div class="routeHeader">
+        <h2 id="lineTitle"></h2>
+        <button id="btnCambiarLinea" onclick="backToLineSelection()">🔄 Cambiar línea</button>
+    </div>
 
     <div class="topBar">
         <div class="paradaInfo">
