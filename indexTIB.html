@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TPV Conductor TIB</title>
+    <link rel="stylesheet" href="/styleTIB.css">
+</head>
+<body>
+
+<div id="login" class="panel">
+    <h2>Inicio de sesión</h2>
+    <input id="user" placeholder="Usuario">
+    <input id="pass" type="password" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+</div>
+
+<div id="linePanel" class="panel hidden">
+    <h2>Introducir línea</h2>
+    <input id="lineInput" placeholder="Ej: 101">
+    <button onclick="loadLine()">Cargar línea</button>
+</div>
+
+<div id="routePanel" class="panel hidden">
+    <h2 id="lineTitle"></h2>
+
+    <div class="topBar">
+        <div class="paradaInfo">
+            <p><strong>Parada actual:</strong> <span id="paradaActual">-</span></p>
+            <p><strong>Parada próxima:</strong> <span id="paradaProxima">-</span></p>
+        </div>
+        <button id="btnSiguiente" onclick="nextStop()">Siguiente ▶</button>
+    </div>
+
+    <div id="cities"></div>
+</div>
+
+<script src="/scriptTIB.js"></script>
+</body>
+</html>
