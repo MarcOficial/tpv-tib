@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 * {
@@ -9,15 +10,16 @@ html, body {
 
 body {
     margin: 0;
-    min-height: 100vh;
+    height: 100vh;
     background: #0f172a;
     color: #f1f5f9;
 }
 
 .panel {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     padding: 24px;
+    overflow: hidden;
 }
 
 .panel.hidden {
@@ -81,7 +83,8 @@ button:disabled {
     display: flex;
     flex-direction: column;
     padding: 0;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .topBanner {
@@ -135,6 +138,7 @@ button:disabled {
 .mainArea {
     display: flex;
     flex: 1;
+    min-height: 0;
 }
 
 .citiesGrid {
@@ -144,6 +148,7 @@ button:disabled {
     align-content: flex-start;
     gap: 12px;
     padding: 24px;
+    overflow-y: auto;
 }
 
 .cityBtn {
@@ -175,6 +180,7 @@ button:disabled {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    overflow-y: auto;
 }
 
 .ticketHint {
