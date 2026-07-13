@@ -99,16 +99,15 @@ button:disabled {
 
 .logoBadge {
     background: #fff;
-    color: #178a4c;
-    font-weight: 800;
-    font-size: 20px;
-    padding: 8px 14px;
+    padding: 6px 12px;
     border-radius: 8px;
-    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
 }
 
 .logoImg {
-    height: 40px;
+    height: 36px;
+    display: block;
 }
 
 .topBanner .paradaInfo {
