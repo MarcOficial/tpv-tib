@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="/styleTIB.css">
 </head>
 <body>
- 
+
 <div id="login" class="panel centered">
     <h2>Inicio de sesión</h2>
     <input id="user" placeholder="Usuario">
     <input id="pass" type="password" placeholder="Contraseña">
     <button onclick="login()">Entrar</button>
 </div>
- 
+
 <div id="linePanel" class="panel centered hidden">
     <h2>Selecciona línea</h2>
     <select id="lineSelect">
@@ -21,44 +21,44 @@
     </select>
     <button onclick="loadLine()">Cargar línea</button>
 </div>
- 
+
 <div id="routePanel" class="panel hidden">
- 
+
     <header class="topBanner">
         <!-- Logo real de Grupo Ruiz -->
         <div class="logoBadge">
             <img src="/GrupoRuiz.png" alt="Grupo Ruiz" class="logoImg">
         </div>
- 
+
         <div class="paradaInfo">
             <p><strong>Parada actual:</strong> <span id="paradaActual">-</span></p>
             <p><strong>Parada próxima:</strong> <span id="paradaProxima">-</span></p>
         </div>
- 
+
         <div class="topBannerActions">
             <button id="btnSiguiente" onclick="nextStop()">Siguiente ▶</button>
             <button id="btnCambiarLinea" onclick="backToLineSelection()">Cambiar línea</button>
         </div>
     </header>
- 
+
     <div class="mainArea">
         <div class="citiesGrid" id="cities"></div>
- 
+
         <aside class="ticketPanel">
             <h3>Cobrar billete</h3>
             <p class="ticketHint">Selecciona el nº de personas y pulsa la ciudad de destino</p>
- 
+
             <div class="stepper">
                 <button onclick="decPeople()">−</button>
                 <span id="peopleCount">1</span>
                 <button onclick="incPeople()">+</button>
             </div>
- 
+
             <div id="lastCharge" class="lastCharge"></div>
         </aside>
     </div>
 </div>
- 
-<script src="/scriptTIB.js"></script>
+
+<script src="/script.js"></script>
 </body>
 </html>
